@@ -47,8 +47,8 @@ export const HeroSection: React.FC = () => {
       aria-label="Introduction and Hero"
       className="relative pt-3 pb-8 sm:pt-5 sm:pb-12 px-3 sm:px-6 lg:px-8 max-w-5xl mx-auto"
     >
-      {/* Desk Artifact: Classic drafting pencil at top-right edge */}
-      <div className="absolute -top-4 -right-4 lg:-right-8 xl:-right-24 2xl:-right-28 pointer-events-auto hidden lg:block z-10">
+      {/* Desk Artifact: Classic drafting pencil in upper-right outer margin below navbar */}
+      <div className="absolute top-6 sm:top-8 lg:top-10 xl:top-12 -right-20 lg:-right-32 xl:-right-48 2xl:-right-56 pointer-events-auto hidden lg:block z-10">
         <DeskPencil />
       </div>
 

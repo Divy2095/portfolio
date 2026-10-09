@@ -2,7 +2,6 @@ import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { WashiTape, SketchDivider, HandStar } from '../components/SketchDoodles';
 import {
-  DeskStickyNote,
   DeskBookStack,
   DeskEarphones,
   DeskMouse,
@@ -21,15 +20,6 @@ export const WorkPlaceholder: React.FC = () => {
         aria-label="Projects Section Preview"
         className="relative py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
       >
-        {/* Desk Artifact: Yellow Sticky Note with coding thought on left margin */}
-        <div className="absolute top-1/2 -translate-y-1/2 -left-10 lg:-left-16 xl:-left-28 2xl:-left-36 pointer-events-auto hidden xl:block z-10">
-          <DeskStickyNote
-            color="yellow"
-            rotation="-rotate-3"
-            note={["// dev note", "build things to", "understand how", "they work ✎"]}
-          />
-        </div>
-
         {/* Desk Artifact: Stack of technical books (C++, Linux, Systems) on right margin */}
         <div className="absolute top-1/2 -translate-y-1/2 -right-8 lg:-right-16 xl:-right-28 2xl:-right-36 pointer-events-auto hidden xl:block z-10">
           <DeskBookStack />
@@ -89,15 +79,6 @@ export const AboutPlaceholder: React.FC = () => {
         {/* Desk Artifact: Draped wired earphones on left margin */}
         <div className="absolute top-1/2 -translate-y-1/2 -left-8 lg:-left-12 xl:-left-24 2xl:-left-32 pointer-events-none hidden xl:block z-10">
           <DeskEarphones />
-        </div>
-
-        {/* Desk Artifact: Mint Sticky note with origin thought on right margin */}
-        <div className="absolute top-1/2 -translate-y-1/2 -right-10 lg:-right-16 xl:-right-28 2xl:-right-36 pointer-events-auto hidden xl:block z-10">
-          <DeskStickyNote
-            color="mint"
-            rotation="rotate-2"
-            note={["// origin note", "curiosity >", "complacency 💡", "first principles"]}
-          />
         </div>
 
         <motion.div

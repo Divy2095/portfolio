@@ -36,9 +36,9 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-paper text-ink relative flex flex-col selection:bg-butter-yellow selection:text-ink overflow-x-clip">
-      {/* Top Desk Edge: Partially visible mechanical keyboard */}
-      <div className="absolute -top-12 sm:-top-16 left-1/2 -translate-x-[62%] sm:-translate-x-[68%] pointer-events-none z-0 hidden md:block opacity-75 select-none">
-        <DeskKeyboard />
+      {/* Top-Left Desk Edge: Mechanical keyboard resting in upper-left corner */}
+      <div className="absolute top-2 sm:top-3 lg:top-4 left-3 sm:left-5 xl:left-6 2xl:left-10 pointer-events-none z-10 hidden xl:block opacity-85 select-none">
+        <DeskKeyboard className="w-[210px] sm:w-[225px] xl:w-[235px] 2xl:w-[260px]" />
       </div>
 
       {/* Hand-drawn Header & Navigation */}

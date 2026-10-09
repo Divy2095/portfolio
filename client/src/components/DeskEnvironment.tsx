@@ -12,14 +12,14 @@ export const DeskKeyboard: React.FC<{ className?: string }> = ({ className = "" 
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-      className={`pointer-events-auto select-none ${className}`}
+      className={`pointer-events-auto select-none ${className || "w-[240px] xl:w-[280px]"}`}
       aria-hidden="true"
     >
       <svg
         viewBox="0 0 460 140"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-[340px] md:w-[420px] lg:w-[460px] h-auto overflow-visible filter drop-shadow-[3px_4px_0px_#29252B]"
+        className="w-full h-auto overflow-visible filter drop-shadow-[3px_4px_0px_#29252B]"
       >
         {/* Keyboard Chassis */}
         <rect
@@ -71,7 +71,7 @@ export const DeskKeyboard: React.FC<{ className?: string }> = ({ className = "" 
         {['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='].map((num, i) => (
           <g key={num} transform={`translate(${50 + i * 28}, 52)`}>
             <rect width="24" height="24" rx="4" fill="#F8F4EB" stroke="#29252B" strokeWidth="1.8" />
-            <text x="12" y="68" textAnchor="middle" fill="#29252B" fontSize="9" fontFamily="monospace" fontWeight="600">{num}</text>
+            <text x="12" y="16" textAnchor="middle" fill="#29252B" fontSize="9" fontFamily="monospace" fontWeight="600">{num}</text>
           </g>
         ))}
 
@@ -87,7 +87,7 @@ export const DeskKeyboard: React.FC<{ className?: string }> = ({ className = "" 
         {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']'].map((letter, i) => (
           <g key={letter} transform={`translate(${60 + i * 28}, 82)`}>
             <rect width="24" height="24" rx="4" fill="#F8F4EB" stroke="#29252B" strokeWidth="1.8" />
-            <text x="12" y="98" textAnchor="middle" fill="#29252B" fontSize="9" fontFamily="monospace" fontWeight="bold">{letter}</text>
+            <text x="12" y="16" textAnchor="middle" fill="#29252B" fontSize="9" fontFamily="monospace" fontWeight="bold">{letter}</text>
           </g>
         ))}
 
@@ -129,10 +129,9 @@ export const DeskPencil: React.FC<{ className?: string }> = ({ className = "" })
   return (
     <motion.div
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, rotate: 15 }}
-      whileInView={{ opacity: 1, rotate: 22 }}
-      viewport={{ once: true }}
+      animate={{ opacity: 1, rotate: 22 }}
       whileHover={shouldReduceMotion ? {} : { rotate: 26, y: -2 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
       className={`pointer-events-auto cursor-pointer select-none ${className}`}
       title="Drawing pencil (HB)"
       aria-hidden="true"
@@ -245,55 +244,7 @@ export const DeskCoffeeMug: React.FC<{ className?: string }> = ({ className = ""
 };
 
 /**
- * 4. Pinned Handwritten Sticky Note with coding thought
- */
-export const DeskStickyNote: React.FC<{
-  note?: string[];
-  color?: 'yellow' | 'mint' | 'pink';
-  className?: string;
-  rotation?: string;
-}> = ({
-  note = ["// dev note", "build things to", "understand how", "they work ✎"],
-  color = 'yellow',
-  className = "",
-  rotation = "-rotate-3",
-}) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  const bgColors = {
-    yellow: "bg-butter-yellow border-ink",
-    mint: "bg-mint-green border-ink",
-    pink: "bg-soft-pink border-ink",
-  };
-
-  return (
-    <motion.div
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={shouldReduceMotion ? {} : { y: -3, rotate: -1 }}
-      transition={{ duration: 0.45, ease: "easeOut" }}
-      className={`pointer-events-auto select-none p-3.5 w-40 sm:w-44 ${bgColors[color]} border-2 rounded-sketch-sm shadow-sketch ${rotation} ${className}`}
-      aria-hidden="true"
-    >
-      {/* Tape on top of note */}
-      <div
-        className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-3.5 bg-paper/80 border-y border-dashed border-ink/40 shadow-sm"
-        style={{ clipPath: 'polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%)' }}
-      />
-      <div className="font-hand font-bold text-ink leading-tight pt-1">
-        {note.map((line, idx) => (
-          <p key={idx} className={idx === 0 ? "font-mono text-[10px] text-muted mb-1" : "text-sm sm:text-base"}>
-            {line}
-          </p>
-        ))}
-      </div>
-    </motion.div>
-  );
-};
-
-/**
- * 5. Stack of 3 Technical Books lying flat on the desk
+ * 4. Stack of 3 Technical Books lying flat on the desk with horizontal spines
  */
 export const DeskBookStack: React.FC<{ className?: string }> = ({ className = "" }) => {
   const shouldReduceMotion = useReducedMotion();
@@ -310,44 +261,163 @@ export const DeskBookStack: React.FC<{ className?: string }> = ({ className = ""
       aria-hidden="true"
     >
       <svg
-        viewBox="0 0 170 120"
+        viewBox="0 0 200 115"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="w-36 sm:w-44 md:w-48 h-auto overflow-visible filter drop-shadow-[3px_4px_0px_#29252B]"
       >
-        {/* Bottom Book: COMPUTER SYSTEMS (Lavender) */}
-        <g transform="translate(10, 68)">
-          {/* Pages block */}
-          <polygon points="12,0 148,0 144,32 8,32" fill="#F8F4EB" stroke="#29252B" strokeWidth="2" />
-          <line x1="16" y1="10" x2="140" y2="10" stroke="#E5DEC9" strokeWidth="1" />
-          <line x1="14" y1="20" x2="142" y2="20" stroke="#E5DEC9" strokeWidth="1" />
-          {/* Spine */}
-          <rect x="0" y="4" width="22" height="28" rx="3" fill="#D6C5FF" stroke="#29252B" strokeWidth="2.5" />
-          {/* Cover border */}
-          <line x1="0" y1="4" x2="144" y2="4" stroke="#29252B" strokeWidth="2.5" />
-          <line x1="0" y1="32" x2="144" y2="32" stroke="#29252B" strokeWidth="2.5" />
-          {/* Spine Title */}
-          <text x="-20" y="16" transform="rotate(-90)" fill="#29252B" fontSize="8" fontFamily="monospace" fontWeight="bold">SYSTEMS</text>
+        {/* Bottom Book: SYSTEMS (Lavender) */}
+        <g id="book-bottom">
+          {/* Pages block on right */}
+          <polygon
+            points="156,76 186,70 186,94 156,102"
+            fill="#F8F4EB"
+            stroke="#29252B"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <line x1="158" y1="82" x2="184" y2="76" stroke="#E5DEC9" strokeWidth="1" />
+          <line x1="158" y1="88" x2="184" y2="82" stroke="#E5DEC9" strokeWidth="1" />
+          <line x1="158" y1="94" x2="184" y2="88" stroke="#E5DEC9" strokeWidth="1" />
+
+          {/* Horizontal Spine */}
+          <rect
+            x="10"
+            y="76"
+            width="146"
+            height="26"
+            rx="3.5"
+            fill="#D6C5FF"
+            stroke="#29252B"
+            strokeWidth="2.5"
+          />
+          {/* Decorative spine accent lines */}
+          <line x1="20" y1="76" x2="20" y2="102" stroke="#29252B" strokeWidth="1.5" />
+          <line x1="24" y1="76" x2="24" y2="102" stroke="#29252B" strokeWidth="1.2" />
+          <line x1="144" y1="76" x2="144" y2="102" stroke="#29252B" strokeWidth="1.5" />
+          <line x1="148" y1="76" x2="148" y2="102" stroke="#29252B" strokeWidth="1.2" />
+
+          {/* Horizontal Title: SYSTEMS */}
+          <text
+            x="84"
+            y="93"
+            textAnchor="middle"
+            fill="#29252B"
+            fontSize="11"
+            fontFamily="monospace"
+            fontWeight="bold"
+            letterSpacing="0.1em"
+          >
+            SYSTEMS
+          </text>
         </g>
 
-        {/* Middle Book: LINUX INTERNALS (Mint Green) */}
-        <g transform="translate(18, 38)">
-          <polygon points="10,0 138,0 134,26 6,26" fill="#F8F4EB" stroke="#29252B" strokeWidth="2" />
-          <rect x="0" y="3" width="20" height="24" rx="3" fill="#B9F2C3" stroke="#29252B" strokeWidth="2.5" />
-          <line x1="0" y1="3" x2="136" y2="3" stroke="#29252B" strokeWidth="2.5" />
-          <line x1="0" y1="27" x2="136" y2="27" stroke="#29252B" strokeWidth="2.5" />
-          <text x="-18" y="14" transform="rotate(-90)" fill="#29252B" fontSize="8" fontFamily="monospace" fontWeight="bold">LINUX</text>
+        {/* Middle Book: LINUX (Mint Green) */}
+        <g id="book-middle">
+          {/* Pages block on right */}
+          <polygon
+            points="150,50 178,45 178,69 150,76"
+            fill="#F8F4EB"
+            stroke="#29252B"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <line x1="152" y1="56" x2="176" y2="51" stroke="#E5DEC9" strokeWidth="1" />
+          <line x1="152" y1="62" x2="176" y2="57" stroke="#E5DEC9" strokeWidth="1" />
+          <line x1="152" y1="68" x2="176" y2="63" stroke="#E5DEC9" strokeWidth="1" />
+
+          {/* Horizontal Spine */}
+          <rect
+            x="16"
+            y="50"
+            width="134"
+            height="26"
+            rx="3.5"
+            fill="#B9F2C3"
+            stroke="#29252B"
+            strokeWidth="2.5"
+          />
+          {/* Decorative spine accent lines */}
+          <line x1="26" y1="50" x2="26" y2="76" stroke="#29252B" strokeWidth="1.5" />
+          <line x1="30" y1="50" x2="30" y2="76" stroke="#29252B" strokeWidth="1.2" />
+          <line x1="138" y1="50" x2="138" y2="76" stroke="#29252B" strokeWidth="1.5" />
+          <line x1="142" y1="50" x2="142" y2="76" stroke="#29252B" strokeWidth="1.2" />
+
+          {/* Horizontal Title: LINUX */}
+          <text
+            x="84"
+            y="67"
+            textAnchor="middle"
+            fill="#29252B"
+            fontSize="11"
+            fontFamily="monospace"
+            fontWeight="bold"
+            letterSpacing="0.15em"
+          >
+            LINUX
+          </text>
         </g>
 
-        {/* Top Book: C++ & STL (Soft Pink) */}
-        <g transform="translate(24, 12)">
-          <polygon points="10,0 128,0 124,22 6,22" fill="#F8F4EB" stroke="#29252B" strokeWidth="2" />
-          <rect x="0" y="3" width="18" height="20" rx="3" fill="#FFC9C7" stroke="#29252B" strokeWidth="2.5" />
-          <line x1="0" y1="3" x2="126" y2="3" stroke="#29252B" strokeWidth="2.5" />
-          <line x1="0" y1="23" x2="126" y2="23" stroke="#29252B" strokeWidth="2.5" />
-          <text x="-16" y="13" transform="rotate(-90)" fill="#29252B" fontSize="8" fontFamily="monospace" fontWeight="bold">C++ 20</text>
-          {/* Bookmark Ribbon hanging out */}
-          <path d="M110 20L114 36L118 31L122 36L126 20" fill="#FFE99A" stroke="#29252B" strokeWidth="1.5" />
+        {/* Top Book: C++ (Soft Pink) */}
+        <g id="book-top">
+          {/* Top cover surface in gentle isometric perspective */}
+          <polygon
+            points="22,24 146,24 170,10 46,10"
+            fill="#FFB7B4"
+            stroke="#29252B"
+            strokeWidth="2.2"
+            strokeLinejoin="round"
+          />
+          {/* Pages block on right */}
+          <polygon
+            points="146,24 170,10 170,33 146,48"
+            fill="#F8F4EB"
+            stroke="#29252B"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <line x1="148" y1="30" x2="168" y2="16" stroke="#E5DEC9" strokeWidth="1" />
+          <line x1="148" y1="36" x2="168" y2="22" stroke="#E5DEC9" strokeWidth="1" />
+
+          {/* Horizontal Spine */}
+          <rect
+            x="22"
+            y="24"
+            width="124"
+            height="26"
+            rx="3.5"
+            fill="#FFC9C7"
+            stroke="#29252B"
+            strokeWidth="2.5"
+          />
+          {/* Decorative spine accent lines */}
+          <line x1="32" y1="24" x2="32" y2="50" stroke="#29252B" strokeWidth="1.5" />
+          <line x1="36" y1="24" x2="36" y2="50" stroke="#29252B" strokeWidth="1.2" />
+          <line x1="134" y1="24" x2="134" y2="50" stroke="#29252B" strokeWidth="1.5" />
+          <line x1="138" y1="24" x2="138" y2="50" stroke="#29252B" strokeWidth="1.2" />
+
+          {/* Horizontal Title: C++ */}
+          <text
+            x="85"
+            y="41"
+            textAnchor="middle"
+            fill="#29252B"
+            fontSize="12"
+            fontFamily="monospace"
+            fontWeight="bold"
+            letterSpacing="0.12em"
+          >
+            C++
+          </text>
+
+          {/* Yellow Bookmark Ribbon hanging down from top book */}
+          <path
+            d="M110 24 L110 58 L117 51 L124 58 L124 24 Z"
+            fill="#FFE99A"
+            stroke="#29252B"
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
         </g>
       </svg>
     </motion.div>

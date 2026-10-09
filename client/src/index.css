@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-paper: #F8F4EB;
+  --color-ink: #29252B;
+  --color-muted: #625C62;
+  --color-lavender: #D6C5FF;
+  --color-pink: #FFC9C7;
+  --color-mint: #B9F2C3;
+  --color-yellow: #FFE99A;
+}
+
+/* Notebook paper texture styling */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--color-paper);
+  background-image: radial-gradient(rgba(41, 37, 43, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--color-ink);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom hand-drawn outline utilities */
+@layer components {
+  /* Irregular hand-drawn border effect */
+  .sketch-box {
+    border: 2px solid var(--color-ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    box-shadow: 3px 3px 0px var(--color-ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .sketch-box-alt {
+    border: 2px solid var(--color-ink);
+    border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+    box-shadow: 4px 4px 0px var(--color-ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .sketch-box-lg {
+    border: 2.5px solid var(--color-ink);
+    border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+    box-shadow: 5px 5px 0px var(--color-ink);
+  }
+
+  /* Interactive tactile button */
+  .sketch-btn {
+    border: 2px solid var(--color-ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    box-shadow: 3px 3px 0px var(--color-ink);
+    transition: all 0.12s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+
+  .sketch-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px var(--color-ink);
+  }
+
+  .sketch-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px var(--color-ink);
+  }
+
+  /* Washi tape decorative banner */
+  .washi-tape {
+    position: relative;
+    background: rgba(255, 233, 154, 0.7);
+    border-left: 1px dashed rgba(41, 37, 43, 0.4);
+    border-right: 1px dashed rgba(41, 37, 43, 0.4);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Marker highlighter effect */
+  .highlighter-yellow {
+    background: linear-gradient(104deg, rgba(255, 233, 154, 0) 0.9%, rgba(255, 233, 154, 0.85) 2.4%, rgba(255, 233, 154, 0.7) 5.8%, rgba(255, 233, 154, 0.1) 93%, rgba(255, 233, 154, 0.7) 96%, rgba(255, 233, 154, 0) 98%);
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+
+  .highlighter-pink {
+    background: linear-gradient(104deg, rgba(255, 201, 199, 0) 0.9%, rgba(255, 201, 199, 0.85) 2.4%, rgba(255, 201, 199, 0.7) 5.8%, rgba(255, 201, 199, 0.1) 93%, rgba(255, 201, 199, 0.7) 96%, rgba(255, 201, 199, 0) 98%);
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+
+  .highlighter-mint {
+    background: linear-gradient(104deg, rgba(185, 242, 195, 0) 0.9%, rgba(185, 242, 195, 0.85) 2.4%, rgba(185, 242, 195, 0.7) 5.8%, rgba(185, 242, 195, 0.1) 93%, rgba(185, 242, 195, 0.7) 96%, rgba(185, 242, 195, 0) 98%);
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+
+  /* Notebook spiral binding side ornament */
+  .notebook-margin-line {
+    border-left: 2px dashed rgba(255, 201, 199, 0.8);
+  }
+}
+
+/* Friendly scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8F4EB;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D6C5FF;
+  border: 2px solid #29252B;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #BFA5FF;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}

@@ -7,6 +7,7 @@ import {
   ContactPlaceholder,
 } from './sections/SectionPlaceholders';
 import { Footer } from './components/Footer';
+import { DeskKeyboard } from './components/DeskEnvironment';
 
 export function App() {
   const [activeSection, setActiveSection] = useState<string>('home');
@@ -34,12 +35,17 @@ export function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-paper text-ink relative flex flex-col selection:bg-butter-yellow selection:text-ink">
+    <div className="min-h-screen bg-paper text-ink relative flex flex-col selection:bg-butter-yellow selection:text-ink overflow-x-clip">
+      {/* Top Desk Edge: Partially visible mechanical keyboard */}
+      <div className="absolute -top-12 sm:-top-16 left-1/2 -translate-x-[62%] sm:-translate-x-[68%] pointer-events-none z-0 hidden md:block opacity-75 select-none">
+        <DeskKeyboard />
+      </div>
+
       {/* Hand-drawn Header & Navigation */}
       <Navbar activeSection={activeSection} />
 
       {/* Main Content Sections */}
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {/* Phase 3 Hero Section */}
         <HeroSection />
 

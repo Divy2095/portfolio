@@ -11,6 +11,7 @@ import {
   NotebookSpiral,
   GithubIcon,
 } from '../components/SketchDoodles';
+import { DeskPencil, DeskCoffeeMug, DeskPaperclip } from '../components/DeskEnvironment';
 import { ArrowDown, Terminal, Sparkles, Code2, Cpu } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
@@ -46,6 +47,21 @@ export const HeroSection: React.FC = () => {
       aria-label="Introduction and Hero"
       className="relative pt-3 pb-8 sm:pt-5 sm:pb-12 px-3 sm:px-6 lg:px-8 max-w-5xl mx-auto"
     >
+      {/* Desk Artifact: Classic drafting pencil at top-right edge */}
+      <div className="absolute -top-4 -right-4 lg:-right-8 xl:-right-24 2xl:-right-28 pointer-events-auto hidden lg:block z-10">
+        <DeskPencil />
+      </div>
+
+      {/* Desk Artifact: Ceramic Coffee mug with foam heart on left margin */}
+      <div className="absolute top-[260px] -left-10 lg:-left-16 xl:-left-28 2xl:-left-36 pointer-events-auto hidden xl:block z-10">
+        <DeskCoffeeMug />
+      </div>
+
+      {/* Desk Artifact: Small pink paperclip */}
+      <div className="absolute bottom-10 -left-6 lg:-left-10 xl:-left-16 pointer-events-none hidden xl:block z-10">
+        <DeskPaperclip color="pink" rotation="-rotate-12" />
+      </div>
+
       {/* Sketchbook Page Container with irregular border */}
       <div className="relative bg-paper border-2 border-ink rounded-sketch-lg shadow-sketch-lg p-4 sm:p-7 md:p-9 overflow-hidden">
         {/* Washi tape accents on corners with varied styles */}

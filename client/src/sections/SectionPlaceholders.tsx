@@ -1,6 +1,13 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { WashiTape, SketchDivider, HandStar } from '../components/SketchDoodles';
+import {
+  DeskStickyNote,
+  DeskBookStack,
+  DeskEarphones,
+  DeskMouse,
+  DeskPaperclip,
+} from '../components/DeskEnvironment';
 import { FolderGit2, BookOpen, Mail, Sparkles, Pencil } from 'lucide-react';
 
 export const WorkPlaceholder: React.FC = () => {
@@ -12,8 +19,22 @@ export const WorkPlaceholder: React.FC = () => {
       <section
         id="work"
         aria-label="Projects Section Preview"
-        className="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
+        className="relative py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
       >
+        {/* Desk Artifact: Yellow Sticky Note with coding thought on left margin */}
+        <div className="absolute top-1/2 -translate-y-1/2 -left-10 lg:-left-16 xl:-left-28 2xl:-left-36 pointer-events-auto hidden xl:block z-10">
+          <DeskStickyNote
+            color="yellow"
+            rotation="-rotate-3"
+            note={["// dev note", "build things to", "understand how", "they work ✎"]}
+          />
+        </div>
+
+        {/* Desk Artifact: Stack of technical books (C++, Linux, Systems) on right margin */}
+        <div className="absolute top-1/2 -translate-y-1/2 -right-8 lg:-right-16 xl:-right-28 2xl:-right-36 pointer-events-auto hidden xl:block z-10">
+          <DeskBookStack />
+        </div>
+
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -63,8 +84,22 @@ export const AboutPlaceholder: React.FC = () => {
       <section
         id="about"
         aria-label="About Section Preview"
-        className="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
+        className="relative py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
       >
+        {/* Desk Artifact: Draped wired earphones on left margin */}
+        <div className="absolute top-1/2 -translate-y-1/2 -left-8 lg:-left-12 xl:-left-24 2xl:-left-32 pointer-events-none hidden xl:block z-10">
+          <DeskEarphones />
+        </div>
+
+        {/* Desk Artifact: Mint Sticky note with origin thought on right margin */}
+        <div className="absolute top-1/2 -translate-y-1/2 -right-10 lg:-right-16 xl:-right-28 2xl:-right-36 pointer-events-auto hidden xl:block z-10">
+          <DeskStickyNote
+            color="mint"
+            rotation="rotate-2"
+            note={["// origin note", "curiosity >", "complacency 💡", "first principles"]}
+          />
+        </div>
+
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -114,8 +149,19 @@ export const ContactPlaceholder: React.FC = () => {
       <section
         id="contact"
         aria-label="Contact Section Preview"
-        className="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
+        className="relative py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
       >
+        {/* Desk Artifact: Left margin paperclips */}
+        <div className="absolute top-1/2 -translate-y-1/2 -left-6 lg:-left-10 xl:-left-16 pointer-events-none hidden xl:flex flex-col gap-3 z-10">
+          <DeskPaperclip color="lavender" rotation="rotate-45" />
+          <DeskPaperclip color="mint" rotation="-rotate-12" />
+        </div>
+
+        {/* Desk Artifact: Optical computer mouse on right margin */}
+        <div className="absolute top-1/2 -translate-y-1/2 -right-8 lg:-right-14 xl:-right-24 2xl:-right-32 pointer-events-auto hidden xl:block z-10">
+          <DeskMouse />
+        </div>
+
         <motion.div
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}

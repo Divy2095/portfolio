@@ -17,20 +17,30 @@ const QUOTES = [
 export const CharacterMascot: React.FC<CharacterMascotProps> = ({ className = "" }) => {
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
-  const handleNextQuote = () => {
+  const handleMascotClick = () => {
     setQuoteIndex((prev) => (prev + 1) % QUOTES.length);
+    if (!shouldReduceMotion) {
+      setIsClicked(true);
+      setTimeout(() => setIsClicked(false), 500);
+    }
   };
 
   return (
-    <div className={`relative flex flex-col items-center select-none ${className}`}>
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.55, delay: 0.2, ease: "easeOut" }}
+      className={`relative flex flex-col items-center select-none max-w-full ${className}`}
+    >
       {/* Hand-drawn Speech Bubble */}
       <motion.div
         className="relative mb-2 px-3 py-1.5 bg-butter-yellow border-2 border-ink rounded-sketch-sm shadow-sketch-sm cursor-pointer"
-        whileHover={shouldReduceMotion ? {} : { scale: 1.05, rotate: -2 }}
-        whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-        onClick={handleNextQuote}
+        whileHover={shouldReduceMotion ? {} : { scale: 1.04, rotate: -1.5 }}
+        whileTap={shouldReduceMotion ? {} : { scale: 0.96 }}
+        onClick={handleMascotClick}
         title="Click me for a note!"
       >
         <span className="font-hand text-base md:text-lg text-ink font-bold tracking-wide">
@@ -45,26 +55,24 @@ export const CharacterMascot: React.FC<CharacterMascotProps> = ({ className = ""
 
       {/* Main Mascot Illustration */}
       <motion.div
-        className="relative cursor-pointer"
+        className="relative cursor-pointer max-w-full flex justify-center"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={handleNextQuote}
+        onClick={handleMascotClick}
         animate={
           shouldReduceMotion
             ? {}
+            : isClicked
+            ? { rotate: [-2, 2, -1, 1, 0], scale: [1, 1.03, 1] }
             : isHovered
-            ? { y: [0, -6, 0], rotate: [0, -2, 2, 0] }
-            : { y: [0, -4, 0] }
+            ? { y: -2, rotate: 1 }
+            : { y: 0, rotate: 0 }
         }
-        transition={{
-          repeat: Infinity,
-          duration: isHovered ? 1.2 : 3,
-          ease: "easeInOut",
-        }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
       >
         <svg
           viewBox="0 0 180 180"
-          className="w-36 h-36 md:w-44 md:h-44 overflow-visible filter drop-shadow-[3px_4px_0px_#29252B]"
+          className="w-32 h-32 sm:w-36 sm:h-36 md:w-44 md:h-44 max-w-full overflow-visible filter drop-shadow-[2.5px_3.5px_0px_#29252B]"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -137,20 +145,41 @@ export const CharacterMascot: React.FC<CharacterMascotProps> = ({ className = ""
           />
 
           {/* Terminal / Doodle face inside screen */}
-          {/* Eyes */}
-          <circle cx="75" cy="85" r={isHovered ? "5.5" : "4.5"} fill="#29252B" />
-          <circle cx="105" cy="85" r={isHovered ? "5.5" : "4.5"} fill="#29252B" />
-          {/* Eye shine */}
-          <circle cx="77" cy="83" r="1.5" fill="#FFFFFF" />
-          <circle cx="107" cy="83" r="1.5" fill="#FFFFFF" />
+          {/* Eyes: Happy arc during click, round circles normally */}
+          {isClicked ? (
+            <g stroke="#29252B" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M71 86C74 81 78 81 81 86" />
+              <path d="M101 86C104 81 108 81 111 86" />
+            </g>
+          ) : (
+            <g>
+              <circle cx="75" cy="85" r={isHovered ? "5.2" : "4.5"} fill="#29252B" />
+              <circle cx="105" cy="85" r={isHovered ? "5.2" : "4.5"} fill="#29252B" />
+              {/* Eye shine */}
+              <circle cx="77" cy="83" r="1.5" fill="#FFFFFF" />
+              <circle cx="107" cy="83" r="1.5" fill="#FFFFFF" />
+            </g>
+          )}
 
           {/* Blush marks */}
-          <ellipse cx="67" cy="94" rx="4" ry="2.5" fill="#FFC9C7" />
-          <ellipse cx="113" cy="94" rx="4" ry="2.5" fill="#FFC9C7" />
+          <ellipse
+            cx="67"
+            cy="94"
+            rx={isClicked ? "5" : "4"}
+            ry={isClicked ? "3.2" : "2.5"}
+            fill={isClicked ? "#FFA8A5" : "#FFC9C7"}
+          />
+          <ellipse
+            cx="113"
+            cy="94"
+            rx={isClicked ? "5" : "4"}
+            ry={isClicked ? "3.2" : "2.5"}
+            fill={isClicked ? "#FFA8A5" : "#FFC9C7"}
+          />
 
           {/* Smile */}
           <path
-            d={isHovered ? "M82 92C86 98 94 98 98 92" : "M84 92C87 95 93 95 96 92"}
+            d={isClicked ? "M81 92C85 99 95 99 99 92" : isHovered ? "M82 92C86 97 94 97 98 92" : "M84 92C87 95 93 95 96 92"}
             stroke="#29252B"
             strokeWidth="2.5"
             strokeLinecap="round"
@@ -246,20 +275,20 @@ export const CharacterMascot: React.FC<CharacterMascotProps> = ({ className = ""
           />
         </svg>
 
-        {/* Small floating sparkles */}
+        {/* Small floating sparkles (subtle) */}
         <motion.div
           className="absolute -top-1 -right-2 text-butter-yellow pointer-events-none"
-          animate={shouldReduceMotion ? {} : { rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
-          transition={{ repeat: Infinity, duration: 2.5 }}
+          animate={shouldReduceMotion ? {} : { rotate: [0, 8, -8, 0], scale: [1, 1.1, 1] }}
+          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
         >
-          <Sparkles className="w-5 h-5 text-amber-500 fill-butter-yellow" />
+          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 fill-butter-yellow opacity-80" />
         </motion.div>
       </motion.div>
 
-      {/* Tiny hint */}
-      <span className="font-hand text-xs text-muted mt-1">
-        (tap mascot for doodles)
+      {/* Tiny accessible hint */}
+      <span className="font-hand text-xs text-muted mt-1 select-none">
+        (tap mascot to chat ✎)
       </span>
-    </div>
+    </motion.div>
   );
 };
